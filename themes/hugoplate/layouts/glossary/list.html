@@ -55,11 +55,15 @@
 .glossary-filter-bar {
   position: sticky;
   top: 0;
-  background: white;
+  background: var(--color-body);
   z-index: 10;
   padding: 24px 0 16px;
   border-bottom: 1px solid var(--color-border);
   margin-bottom: 24px;
+}
+.dark .glossary-filter-bar {
+  background: var(--color-darkmode-body);
+  border-bottom-color: var(--color-darkmode-border);
 }
 .filter-label {
   font-size: 0.75rem;
@@ -69,6 +73,9 @@
   color: var(--color-text-light);
   margin-bottom: 12px;
 }
+.dark .filter-label {
+  color: var(--color-darkmode-text-light);
+}
 .filter-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -77,7 +84,7 @@
 .filter-btn {
   padding: 8px 18px;
   border: 1.5px solid var(--color-border);
-  background: white;
+  background: var(--color-body);
   color: var(--color-text);
   font-size: 0.875rem;
   font-weight: 600;
@@ -85,23 +92,43 @@
   border-radius: 2px;
   transition: all 0.2s;
 }
+.dark .filter-btn {
+  background: var(--color-darkmode-body);
+  border-color: var(--color-darkmode-border);
+  color: var(--color-darkmode-text);
+}
 .filter-btn:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+.dark .filter-btn:hover {
+  border-color: var(--color-darkmode-primary);
+  color: var(--color-darkmode-primary);
 }
 .filter-btn.active {
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: white;
 }
+.dark .filter-btn.active {
+  background: var(--color-darkmode-primary);
+  border-color: var(--color-darkmode-primary);
+  color: var(--color-darkmode-body);
+}
 .glossary-count {
   font-size: 0.85rem;
   color: var(--color-text-light);
   margin-bottom: 24px;
 }
+.dark .glossary-count {
+  color: var(--color-darkmode-text-light);
+}
 .glossary-count span {
   font-weight: 600;
   color: var(--color-text-dark);
+}
+.dark .glossary-count span {
+  color: var(--color-darkmode-text-dark);
 }
 .glossary-grid {
   display: grid;
@@ -110,13 +137,22 @@
 }
 .glossary-card {
   border: 1px solid var(--color-border);
+  background: var(--color-body);
   transition: all 0.25s ease;
   overflow: hidden;
+}
+.dark .glossary-card {
+  border-color: var(--color-darkmode-border);
+  background: var(--color-darkmode-light);
 }
 .glossary-card:hover {
   border-color: var(--color-primary);
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+.dark .glossary-card:hover {
+  border-color: var(--color-darkmode-primary);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 .glossary-card.hidden {
   display: none;
@@ -138,6 +174,10 @@
   gap: 10px;
   color: var(--color-text-light);
 }
+.dark .glossary-card-placeholder {
+  background: var(--color-darkmode-light);
+  color: var(--color-darkmode-text-light);
+}
 .glossary-card-placeholder span {
   font-size: 0.78rem;
   letter-spacing: 0.1em;
@@ -154,6 +194,9 @@
   color: var(--color-primary);
   margin-bottom: 8px;
 }
+.dark .glossary-card-category {
+  color: var(--color-darkmode-primary);
+}
 .glossary-card-term {
   font-size: 1.4rem;
   font-weight: 700;
@@ -161,10 +204,16 @@
   margin-bottom: 12px;
   line-height: 1.2;
 }
+.dark .glossary-card-term {
+  color: var(--color-darkmode-text-dark);
+}
 .glossary-card-definition {
   font-size: 0.95rem;
   color: var(--color-text);
   line-height: 1.65;
+}
+.dark .glossary-card-definition {
+  color: var(--color-darkmode-text);
 }
 </style>
 

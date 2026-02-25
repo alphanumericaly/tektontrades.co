@@ -92,6 +92,6 @@ url = "/privacy-policy"
 weight = 3
 
 [[main]]
-name = "The Carpenter's Language"
+name = "Glossary"
 url = "/glossary"
 weight = 6
