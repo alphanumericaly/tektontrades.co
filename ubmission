@@ -1,0 +1,32 @@
+[33mcommit a9082e658176a382b859ab5601f4cf0f7eac0955[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: alphanumericaly <github@sfjmail.com>
+Date:   Tue Feb 24 21:52:28 2026 -0500
+
+    remove lightningcss deps, lock tailwind v3
+
+[33mcommit e8a7abb04a32845aba15679c4e0904fe7e1ff085[m
+Author: alphanumericaly <github@sfjmail.com>
+Date:   Tue Feb 24 21:12:20 2026 -0500
+
+    Update
+
+[33mcommit 7e104c59b7950009eea5c72d2b0f23fbfc3d88eb[m
+Merge: 61ac75a 69334d1
+Author: alphanumericaly <github@sfjmail.com>
+Date:   Wed Oct 15 23:49:32 2025 +0000
+
+    Merge pull request #2 from tfistiak/main
+    
+    Update formsubmit submission
+
+[33mcommit 69334d1627de46fc516039ca6fb15d334a0e7b5e[m
+Author: tfistiak <istiak.themefisher@gmail.com>
+Date:   Sun Oct 5 10:50:33 2025 +0600
+
+    Update formsubmit submission
+
+[33mcommit 61ac75a1c062894f7e08f48e84dc623cce3fb704[m
+Author: alphanumericaly <github@sfjmail.com>
+Date:   Wed Sep 17 16:43:58 2025 -0400
+
+    Update
