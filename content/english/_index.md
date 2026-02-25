@@ -3,7 +3,7 @@
 banner:
   title: "Tekton Trades Inc."
   content: "**Value in Creation**"
-  image: "/images/landingpage/bill2.jpeg"
+  image: "/images/landingpage/1032.jpg"
   button:
     enable: true
     label: "Get An Estimate"
@@ -12,7 +12,7 @@ banner:
 # Features
 features:
   - title: "Why build with Tekton?"
-    image: "/images/landingpage/builtin.png"
+    image: "/images/landingpage/1035.jpg"
     content: "Tekton was born out of frustration with cheap, overpriced furniture. After building for my wife and doing years of research and development while in the Navy, we believe we can build you a custom piece that will last for the rest of your life."
     bulletpoints:
       - "Mechanical joints"
@@ -24,7 +24,7 @@ features:
       link: "/contact/"
 
   - title: "Discover the **Value in Creation**"
-    image: "/images/landingpage/boatsteps.png"
+    image: "/images/landingpage/builtin.png"
     content: "Custom furniture will fit your space seamlessly. Our portfolio is full of projects that elevate each space without the nagging desire that it needs to be just a little bit better."
     bulletpoints:
       - "Built to the size you need"
