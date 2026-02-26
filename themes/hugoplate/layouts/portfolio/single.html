@@ -1,0 +1,96 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+<section class="section">
+  <div class="container">
+    <div class="portfolio-single">
+      <!-- Hero Image -->
+      {{ if .Params.image }}
+      <img class="portfolio-hero" src="{{ .Params.image }}" alt="{{ .Title }}" />
+      {{ end }}
+      <!-- Project Meta -->
+      <div class="portfolio-meta">
+        <span class="portfolio-meta-category">{{ .Params.category }}</span>
+        {{ if .Params.location }}<span class="portfolio-meta-location">{{ .Params.location }}</span>{{ end }}
+        {{ if .Params.year }}<span class="portfolio-meta-year">{{ .Params.year }}</span>{{ end }}
+      </div>
+      <!-- Project Content -->
+      <div class="portfolio-content content">
+        {{ .Content }}
+      </div>
+      <!-- Back Link -->
+      <div class="portfolio-back">
+        <a href="/portfolio/" class="portfolio-back-link">← Back to Portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+.portfolio-single {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.portfolio-hero {
+  width: 100%;
+  max-height: 700px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 32px;
+}
+.portfolio-meta {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.portfolio-meta span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 2px;
+}
+.portfolio-meta-category {
+  background: var(--color-primary);
+  color: white;
+}
+.dark .portfolio-meta-category {
+  background: var(--color-darkmode-primary);
+  color: var(--color-darkmode-body);
+}
+.portfolio-meta-location,
+.portfolio-meta-year {
+  background: var(--color-light);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+.dark .portfolio-meta-location,
+.dark .portfolio-meta-year {
+  background: var(--color-darkmode-light);
+  color: var(--color-darkmode-text);
+  border-color: var(--color-darkmode-border);
+}
+.portfolio-content {
+  margin-bottom: 48px;
+}
+.portfolio-back {
+  padding-top: 32px;
+  border-top: 1px solid var(--color-border);
+}
+.dark .portfolio-back {
+  border-top-color: var(--color-darkmode-border);
+}
+.portfolio-back-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.dark .portfolio-back-link {
+  color: var(--color-darkmode-primary);
+}
+.portfolio-back-link:hover {
+  text-decoration: underline;
+}
+</style>
+{{ end }}
