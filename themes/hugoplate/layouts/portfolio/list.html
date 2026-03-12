@@ -18,7 +18,7 @@
 
     <!-- Project Grid -->
     <div class="portfolio-grid" id="portfolio-grid">
-      {{ range .Pages.ByDate.Reverse }}
+      {{ range .RegularPages.ByDate.Reverse }}
       <a class="portfolio-card" href="{{ .RelPermalink }}" data-category="{{ .Params.category }}">
         {{ if .Params.image }}
           <img class="portfolio-card-image" src="{{ .Params.image }}" alt="{{ .Title }}" loading="lazy" />
