@@ -1,0 +1,408 @@
+{{ define "main" }}
+{{ partial "page-header" . }}
+
+<style>
+/* ── Process page — brand tokens ───────────────────────────────────────── */
+:root {
+  --cherry: #50250C;
+  --gold:   #C88A41;
+  --cream:  #F5EDD6;
+  --dark:   #2a1407;
+  --mid:    #7a5a3a;
+  --light:  #faf7f2;
+}
+
+/* ── Container ─────────────────────────────────────────────────────────── */
+.process-section {
+  padding: 64px 0 80px;
+  background: var(--light);
+}
+.process-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.process-intro {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.process-intro h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: var(--cherry);
+  margin-bottom: 12px;
+}
+.process-intro p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.05rem;
+  color: var(--mid);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE — vertical spine
+   ══════════════════════════════════════════════════════ */
+.process-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Wood-grain spine */
+.process-timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 16px;
+  bottom: 16px;
+  width: 4px;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      #c8a068 0px, #b8904a 2px,
+      #d4aa78 4px, #c09050 6px,
+      #c8a068 8px
+    );
+  border-radius: 4px;
+  opacity: 0.7;
+}
+
+.process-phase {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 10px 0;
+  position: relative;
+}
+
+/* Number node */
+.phase-node {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #d0b888;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(80,37,12,0.12);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  user-select: none;
+}
+.phase-node:hover,
+.process-phase.open .phase-node {
+  border-color: var(--gold);
+  box-shadow: 0 4px 16px rgba(200,138,65,0.25);
+}
+.phase-num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cherry);
+  line-height: 1;
+}
+.phase-node-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-top: 1px;
+}
+
+/* Phase content */
+.phase-content {
+  flex: 1;
+  padding-top: 8px;
+}
+.phase-header {
+  cursor: pointer;
+  user-select: none;
+}
+.phase-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--cherry);
+  margin: 0 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.phase-title .expand-arrow {
+  font-size: 0.7rem;
+  color: var(--gold);
+  transition: transform 0.25s;
+}
+.process-phase.open .phase-title .expand-arrow {
+  transform: rotate(90deg);
+}
+.phase-timing {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0;
+}
+.phase-body {
+  display: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #4a3a28;
+  line-height: 1.75;
+  margin-top: 8px;
+  padding: 12px 16px;
+  background: white;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 1px 6px rgba(80,37,12,0.07);
+}
+.process-phase.open .phase-body {
+  display: block;
+}
+
+/* Payment callout phases */
+.process-phase.payment .phase-node {
+  background: var(--cream);
+  border-color: var(--gold);
+}
+.process-phase.payment .phase-num {
+  color: #8B6010;
+}
+.process-phase.payment .phase-body {
+  border-color: var(--cherry);
+  background: #fdf8f0;
+}
+
+/* ══════════════════════════════════════════════════════
+   DESKTOP — horizontal timeline
+   ══════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+
+  .process-timeline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+  }
+
+  /* Horizontal plank rail */
+  .process-timeline::before {
+    left: 0;
+    right: 0;
+    top: 28px;
+    bottom: auto;
+    width: auto;
+    height: 5px;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        #c8a068 0px, #b8904a 3px,
+        #d4aa78 6px, #c09050 9px,
+        #c8a068 12px
+      );
+    border-radius: 4px;
+    opacity: 0.65;
+  }
+
+  .process-phase {
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 72px;
+    max-width: 120px;
+    padding: 0 4px 24px;
+    gap: 0;
+    text-align: center;
+  }
+
+  .phase-node {
+    margin-bottom: 12px;
+  }
+
+  .phase-content {
+    padding-top: 0;
+    width: 100%;
+  }
+
+  .phase-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .phase-title {
+    font-size: 0.8rem;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .phase-title .expand-arrow {
+    font-size: 0.65rem;
+  }
+
+  .phase-timing {
+    font-size: 0.62rem;
+    text-align: center;
+  }
+
+  /* Expanded body drops below, full width card */
+  .phase-body {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-width: 480px;
+    border-left: none;
+    border-top: 3px solid var(--gold);
+    border-radius: 6px;
+    box-shadow: 0 4px 24px rgba(80,37,12,0.13);
+    padding: 16px 20px;
+    font-size: 0.95rem;
+    z-index: 10;
+    width: max-content;
+    max-width: min(480px, 90vw);
+  }
+
+  /* Wrapper needs relative positioning for the dropdown cards */
+  .process-timeline-wrap {
+    position: relative;
+    padding-bottom: 200px;
+  }
+
+  /* On desktop: node click opens description below */
+  .process-phase.open .phase-body {
+    display: block;
+  }
+}
+
+/* Close button for desktop expanded card */
+.phase-close {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--mid);
+  cursor: pointer;
+  line-height: 1;
+}
+@media (min-width: 768px) {
+  .phase-close { display: block; }
+}
+</style>
+
+<section class="process-section">
+  <div class="process-inner">
+    <div class="process-intro">
+      <h2>Your Project, Start to Finish</h2>
+      <p>Tekton Trades is a one-man shop. Jake handles every project personally &mdash; from the first conversation to the final walkthrough. Here&rsquo;s what that process looks like.</p>
+    </div>
+
+    <div class="process-timeline-wrap">
+      <div class="process-timeline" id="processTimeline">
+
+        {{ $phases := slice
+          (dict "num" "1"  "title" "Inquiry"                "timing" "1–2 weeks"                      "desc" "You reach out, we establish communication, and Jake begins gathering information to start your estimate."                                                                   "payment" false)
+          (dict "num" "2"  "title" "Rough Estimate"         "timing" "End of inquiry"                  "desc" "A ballpark figure before the site visit. Intentionally conservative — real scope follows after we see the space."                                                         "payment" false)
+          (dict "num" "3"  "title" "Site Visit"             "timing" "Scheduled after rough estimate"  "desc" "Jake visits, takes measurements, walks through decisions with you, and establishes full project scope."                                                                    "payment" false)
+          (dict "num" "4"  "title" "Polished Estimate"      "timing" "Within 1 week of site visit"     "desc" "A detailed, accurate estimate reflecting real scope. Materials, labor, and all specifics accounted for."                                                                  "payment" false)
+          (dict "num" "5"  "title" "Final Requests"         "timing" "1–2 weeks"                       "desc" "Options are explored, pricing refined, and final decisions made. This is where the project takes its final shape."                                                        "payment" false)
+          (dict "num" "6"  "title" "Contract &amp; Quote"   "timing" "~1 week"                         "desc" "The quote document accompanies your contract as an enclosure — full scope, Tekton's terms, and your complete payment schedule."                                           "payment" false)
+          (dict "num" "7"  "title" "Scheduling Deposit"     "timing" "10% down"                        "desc" "Secures your place in Jake's queue. Work begins planning your lead time."                                                                                                "payment" true)
+          (dict "num" "8"  "title" "Lead Time"              "timing" "2–8 weeks"                       "desc" "Jake clears current jobs ahead of yours. Materials are planned and sourced."                                                                                             "payment" false)
+          (dict "num" "9"  "title" "Materials Deposit"      "timing" "2–3 weeks from install"          "desc" "Materials are ordered and fabrication begins. Your project is actively in production."                                                                                    "payment" true)
+          (dict "num" "10" "title" "Installation"           "timing" "2–5 days on site"                "desc" "Jake and crew are on site. Duration depends on project size and home access."                                                                                            "payment" false)
+          (dict "num" "11" "title" "Substantial Completion" "timing" "Major work complete"             "desc" "Third payment due when primary scope is complete, before final punch list items."                                                                                        "payment" true)
+          (dict "num" "12" "title" "Final Walkthrough"      "timing" "Last install day"                "desc" "Jake walks through every detail with you. Final 10% due. Warranty items noted and scheduled."                                                                            "payment" true)
+        }}
+
+        {{ range $i, $p := $phases }}
+        <div class="process-phase{{ if $p.payment }} payment{{ end }}" id="phase-{{ $p.num }}"
+             onclick="togglePhase('{{ $p.num }}')">
+          <div class="phase-node">
+            <span class="phase-num">{{ $p.num }}</span>
+            {{ if $p.payment }}<span class="phase-node-label">$</span>{{ end }}
+          </div>
+          <div class="phase-content">
+            <div class="phase-header">
+              <h3 class="phase-title">
+                {{ $p.title }}
+                <span class="expand-arrow">&#9654;</span>
+              </h3>
+              <p class="phase-timing">{{ $p.timing | safeHTML }}</p>
+            </div>
+            <div class="phase-body">
+              <button class="phase-close" onclick="closePhase(event, '{{ $p.num }}')">&times;</button>
+              {{ $p.desc | safeHTML }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+      </div><!-- .process-timeline -->
+    </div><!-- .process-timeline-wrap -->
+
+    <p style="text-align:center;font-family:'DM Sans',sans-serif;font-size:0.85rem;
+              color:var(--mid);margin-top:40px;font-style:italic;">
+      Tap or click any phase to expand.
+      &nbsp; Phases marked <strong style="color:var(--gold)">$</strong> include a payment milestone.
+    </p>
+
+  </div><!-- .process-inner -->
+</section>
+
+<script>
+function togglePhase(num) {
+  var el = document.getElementById('phase-' + num);
+  if (!el) return;
+  var wasOpen = el.classList.contains('open');
+  // Close all others
+  document.querySelectorAll('.process-phase.open').forEach(function(p) {
+    p.classList.remove('open');
+  });
+  // Toggle this one
+  if (!wasOpen) {
+    el.classList.add('open');
+    // On desktop: nudge the tooltip to not clip viewport edges
+    if (window.innerWidth >= 768) {
+      var body = el.querySelector('.phase-body');
+      if (body) {
+        body.style.left = '';
+        body.style.right = '';
+        var rect = body.getBoundingClientRect();
+        if (rect.right > window.innerWidth - 16) {
+          body.style.left = 'auto';
+          body.style.right = '0';
+        }
+        if (rect.left < 16) {
+          body.style.left = '0';
+          body.style.right = 'auto';
+        }
+      }
+    }
+  }
+}
+
+function closePhase(evt, num) {
+  evt.stopPropagation();
+  var el = document.getElementById('phase-' + num);
+  if (el) el.classList.remove('open');
+}
+</script>
+
+{{ end }}
