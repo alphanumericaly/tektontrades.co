@@ -15,7 +15,7 @@
 /* ── Container ─────────────────────────────────────────────────────────── */
 .process-section {
   padding: 64px 0 80px;
-  background: var(--light);
+  background: #fff;
 }
 .process-inner {
   max-width: 1100px;
@@ -403,6 +403,34 @@ function closePhase(evt, num) {
   var el = document.getElementById('phase-' + num);
   if (el) el.classList.remove('open');
 }
+
+// Auto-open step from URL ?step=N
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var step = params.get('step');
+  if (step) {
+    var el = document.getElementById('phase-' + step);
+    if (el) {
+      el.classList.add('open');
+      // Add "You Are Here" indicator
+      var node = el.querySelector('.phase-node');
+      if (node) {
+        node.style.borderColor = '#C88A41';
+        node.style.background = '#50250C';
+        node.style.boxShadow = '0 0 0 3px rgba(200,138,65,0.4)';
+        var num = node.querySelector('.phase-num');
+        if (num) num.style.color = '#C88A41';
+        var here = document.createElement('div');
+        here.style.cssText = 'font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C88A41;margin-top:2px;';
+        here.textContent = 'YOU ARE HERE';
+        node.appendChild(here);
+      }
+      setTimeout(function() {
+        el.scrollIntoView({behavior:'smooth', block:'center'});
+      }, 300);
+    }
+  }
+})();
 </script>
 
 {{ end }}

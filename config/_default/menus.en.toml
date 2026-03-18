@@ -17,12 +17,13 @@ url = "/portfolio"
 weight = 3
 
 [[main]]
-weight = 4
-name = "Carpentry"
+name = "How It Works"
+url = "/process/"
+weight = 3
 
 [[main]]
-weight = 5
-name = "Rentals"
+weight = 4
+name = "Carpentry"
 
 [[main]]
 name = "Contact Us"
@@ -64,15 +65,6 @@ parent = "Carpentry"
 name = "Picture Frames"
 url = "/frames"
 
-[[main]]
-parent = "Rentals"
-name = "Wedding Rentals"
-url = "/wedding-rentals"
-
-[[main]]
-parent = "Rentals"
-name = "Party Rentals"
-url = "/party-rentals"
 
 
 # footer menu
@@ -90,6 +82,11 @@ weight = 2
 name = "Privacy Policy"
 url = "/privacy-policy"
 weight = 3
+
+[[footer]]
+name = "How It Works"
+url = "/process/"
+weight = 4
 
 [[main]]
 name = "Glossary"
