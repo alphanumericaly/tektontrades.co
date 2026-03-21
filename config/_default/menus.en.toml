@@ -88,6 +88,11 @@ name = "How It Works"
 url = "/process/"
 weight = 4
 
+[[footer]]
+name = "Our Standards"
+url = "/standards/"
+weight = 5
+
 [[main]]
 name = "Glossary"
 url = "/glossary"

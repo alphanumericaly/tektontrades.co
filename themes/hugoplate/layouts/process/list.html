@@ -18,28 +18,42 @@
 }
 
 /* Dark mode overrides — matches Hugoplate dark theme */
+html.dark .process-intro h2 { color: #F9F7F1; }
+html.dark .process-intro p { color: #aaa; }
 html.dark .phase-node {
-  background: #222222;
-  border-color: #3E3E3E;
+  background: #2a2a2a;
+  border-color: #666;
 }
 html.dark .phase-node:hover,
 html.dark .process-phase.open .phase-node {
+  background: #50250C;
   border-color: #C88A41;
+  box-shadow: 0 4px 16px rgba(200,138,65,0.3);
 }
+html.dark .phase-num { color: #F5EDD6; }
+html.dark .phase-node-label { color: #C88A41; }
+html.dark .phase-title { color: #F5EDD6; }
+html.dark .phase-title .expand-arrow { color: #C88A41; }
+html.dark .phase-timing { color: #C88A41; }
 html.dark .phase-body {
-  background: #222222;
+  background: #2e2e2e;
   border-left-color: #C88A41;
   color: #F9F7F1;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
-html.dark .phase-title { color: #C88A41; }
-html.dark .phase-timing { color: #C88A41; }
-html.dark .process-intro h2 { color: #C88A41; }
-html.dark .process-intro p { color: #aaa; }
 html.dark .process-phase.payment .phase-node {
-  background: #2a1a08;
+  background: #3a1a08;
   border-color: #C88A41;
 }
-html.dark .idet-body { background: #2a2a2a; color: #F9F7F1; }
+html.dark .process-phase.payment .phase-num { color: #C88A41; }
+html.dark .process-phase.payment .phase-body {
+  background: #2e2010;
+  border-left-color: #C88A41;
+}
+html.dark .phase-close { color: #aaa; }
+html.dark .idet-body { background: #2a2a2a; border-left-color: #C88A41; color: #ddd; }
+html.dark .idet-toggle { color: #888; }
+html.dark .idet-toggle:hover { color: #C88A41; }
 .process-inner {
   max-width: 1100px;
   margin: 0 auto;
