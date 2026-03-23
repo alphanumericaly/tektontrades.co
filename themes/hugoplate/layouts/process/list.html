@@ -14,7 +14,7 @@
 
 /* ── Container ─────────────────────────────────────────────────────────── */
 .process-section {
-  padding: 64px 0 80px;
+  padding: 32px 0 48px;
 }
 
 /* Dark mode overrides — matches Hugoplate dark theme */
@@ -36,6 +36,7 @@ html.dark .phase-title { color: #F5EDD6; }
 html.dark .phase-title .expand-arrow { color: #C88A41; }
 html.dark .phase-timing { color: #C88A41; }
 html.dark .phase-body {
+  display: none !important;
   background: #2e2e2e;
   border-left-color: #C88A41;
   color: #F9F7F1;
@@ -47,6 +48,7 @@ html.dark .process-phase.payment .phase-node {
 }
 html.dark .process-phase.payment .phase-num { color: #C88A41; }
 html.dark .process-phase.payment .phase-body {
+  display: none !important;
   background: #2e2010;
   border-left-color: #C88A41;
 }
@@ -190,6 +192,7 @@ html.dark .idet-toggle:hover { color: #C88A41; }
   margin: 0;
 }
 .phase-body {
+  display: none !important;
   display: none;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
@@ -203,6 +206,7 @@ html.dark .idet-toggle:hover { color: #C88A41; }
   box-shadow: 0 1px 6px rgba(80,37,12,0.07);
 }
 .process-phase.open .phase-body {
+  display: none !important;
   display: block;
 }
 
@@ -215,6 +219,7 @@ html.dark .idet-toggle:hover { color: #C88A41; }
   color: #8B6010;
 }
 .process-phase.payment .phase-body {
+  display: none !important;
   border-color: var(--cherry);
   background: #fdf8f0;
 }
@@ -296,6 +301,7 @@ html.dark .idet-toggle:hover { color: #C88A41; }
 
   /* Expanded body drops below, full width card */
   .phase-body {
+  display: none !important;
     position: absolute;
     top: 100px;
     left: 0;
@@ -316,11 +322,12 @@ html.dark .idet-toggle:hover { color: #C88A41; }
   /* Wrapper needs relative positioning for the dropdown cards */
   .process-timeline-wrap {
     position: relative;
-    padding-bottom: 200px;
+    padding-bottom: 40px;
   }
 
   /* On desktop: node click opens description below */
   .process-phase.open .phase-body {
+  display: none !important;
     display: block;
   }
 }
@@ -394,78 +401,131 @@ html.dark .idet-toggle:hover { color: #C88A41; }
       </div><!-- .process-timeline -->
     </div><!-- .process-timeline-wrap -->
 
-    <p style="text-align:center;font-family:'DM Sans',sans-serif;font-size:0.85rem;
-              color:var(--mid);margin-top:40px;font-style:italic;">
-      Tap or click any phase to expand.
-      &nbsp; Phases marked <strong style="color:var(--gold)">$</strong> include a payment milestone.
-    </p>
+    <!-- Phase card display area -->
+    <div id="phase-card-area" style="margin-top:24px;min-height:60px;">
+      <p id="phase-card-prompt" style="text-align:center;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--mid);font-style:italic;margin:0;padding:16px 0;">
+        Select any phase above to learn more. &nbsp; Phases marked <strong style="color:var(--gold)">$</strong> include a payment milestone.
+      </p>
+      <div id="phase-card" class="glossary-card" style="display:none;max-width:680px;margin:0 auto;"><style>#phase-card .glossary-card-term{font-size:1.1rem;margin-bottom:8px;}#phase-card .glossary-card-category{font-size:0.7rem;}</style>
+        <div class="glossary-card-body">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
+            <p id="phase-card-num" class="glossary-card-category" style="margin:0;"></p>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span id="phase-card-timing" style="font-size:0.8rem;color:var(--mid);"></span>
+              <button onclick="closeCard()" style="background:none;border:none;cursor:pointer;font-size:1.3rem;color:var(--mid);line-height:1;padding:0;">&times;</button>
+            </div>
+          </div>
+          <h3 id="phase-card-title" class="glossary-card-term"></h3>
+          <div id="phase-card-desc" class="glossary-card-definition" style="white-space:pre-line;"></div>
+          <div id="phase-card-payment" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--color-border);">
+            <span style="font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);">&#36; Payment Milestone</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
   </div><!-- .process-inner -->
 </section>
 
 <script>
+// Phase data for card display
+var phaseData = {
+  '1':  { title: 'Inquiry',                timing: '1–2 weeks',                    desc: 'You reach out, we establish communication, and Jake begins gathering information to start your estimate.',                                                                  payment: false },
+  '2':  { title: 'Rough Estimate',         timing: 'End of inquiry',                  desc: 'A ballpark figure before the site visit. Intentionally conservative — real scope follows after we see the space.',                                                        payment: false },
+  '3':  { title: 'Site Visit',             timing: 'Scheduled after rough estimate',  desc: 'Jake visits, takes measurements, walks through decisions with you, and establishes full project scope.',                                                                   payment: false },
+  '4':  { title: 'Polished Estimate',      timing: 'Within 1 week of site visit',     desc: 'A detailed, accurate estimate reflecting real scope. Materials, labor, and all specifics accounted for.',                                                                 payment: false },
+  '5':  { title: 'Final Requests',         timing: '1–2 weeks',                    desc: 'Options are explored, pricing refined, and final decisions made. This is where the project takes its final shape.',                                                       payment: false },
+  '6':  { title: 'Contract & Quote',       timing: '~1 week',                         desc: 'The quote document accompanies your contract as an enclosure — full scope, Tekton’s terms, and your complete payment schedule.',                                  payment: false },
+  '7':  { title: 'Scheduling Deposit',     timing: '10% down',                        desc: 'Secures your place in Jake’s queue. Work begins planning your lead time.',                                                                                             payment: true  },
+  '8':  { title: 'Lead Time',              timing: '2–8 weeks',                    desc: 'Jake clears current jobs ahead of yours. Materials are planned and sourced.',                                                                                            payment: false },
+  '9':  { title: 'Materials Deposit',      timing: '2–3 weeks from install',       desc: 'Materials are ordered and fabrication begins. Your project is actively in production.',                                                                                   payment: true  },
+  '10': { title: 'Installation',           timing: '2–5 days on site',             desc: 'Jake and crew are on site. Duration depends on project size and home access.',                                                                                           payment: false },
+  '11': { title: 'Substantial Completion', timing: 'Major work complete', payment: true,
+    desc: 'The third payment milestone. Substantial Completion is reached when all of the following are true: the built-in is installed plumb, level, and permanently fastened; all doors and drawers operate as intended; all electrical components are functional; all specified components are present; and the structure is sound with no racking or movement.\n\nMinor punch list items — touch-up paint, final caulking, hardware adjustments — do not prevent Substantial Completion from being declared.\n\nTekton will send written notice when this milestone is reached. You have 2 business days to dispute in writing with specific itemized objections. If no dispute is received, Substantial Completion is confirmed and payment is due within 3 business days. Your warranty period begins on this date.'
+  },
+  '12': { title: 'Final Walkthrough',      timing: 'Last install day',                desc: 'Jake walks through every detail with you. Final 10% due. Warranty items noted and scheduled.',                                                                             payment: true  }
+};
+
 function togglePhase(num) {
-  var el = document.getElementById('phase-' + num);
-  if (!el) return;
-  var wasOpen = el.classList.contains('open');
-  // Close all others
-  document.querySelectorAll('.process-phase.open').forEach(function(p) {
+  var phase = phaseData[num];
+  if (!phase) return;
+
+  var card = document.getElementById('phase-card');
+  var prompt = document.getElementById('phase-card-prompt');
+  var activeNum = card.getAttribute('data-active');
+
+  // Deactivate all nodes
+  document.querySelectorAll('.process-phase').forEach(function(p) {
     p.classList.remove('open');
   });
-  // Toggle this one
-  if (!wasOpen) {
-    el.classList.add('open');
-    // On desktop: nudge the tooltip to not clip viewport edges
-    if (window.innerWidth >= 768) {
-      var body = el.querySelector('.phase-body');
-      if (body) {
-        body.style.left = '';
-        body.style.right = '';
-        var rect = body.getBoundingClientRect();
-        if (rect.right > window.innerWidth - 16) {
-          body.style.left = 'auto';
-          body.style.right = '0';
-        }
-        if (rect.left < 16) {
-          body.style.left = '0';
-          body.style.right = 'auto';
-        }
-      }
-    }
+
+  // If clicking the already-open card, close it
+  if (activeNum === num && card.style.display !== 'none') {
+    card.style.display = 'none';
+    card.removeAttribute('data-active');
+    prompt.style.display = 'block';
+    return;
   }
+
+  // Populate card
+  document.getElementById('phase-card-num').textContent = 'Phase ' + num;
+  document.getElementById('phase-card-title').textContent = phase.title;
+  document.getElementById('phase-card-timing').textContent = phase.timing;
+  document.getElementById('phase-card-desc').textContent = phase.desc;
+  document.getElementById('phase-card-payment').style.display = phase.payment ? 'block' : 'none';
+
+  // Show card, hide prompt
+  card.setAttribute('data-active', num);
+  card.style.display = 'block';
+  prompt.style.display = 'none';
+
+  // Highlight active node
+  var el = document.getElementById('phase-' + num);
+  if (el) el.classList.add('open');
+
+  // Smooth scroll to card
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function closePhase(evt, num) {
-  evt.stopPropagation();
-  var el = document.getElementById('phase-' + num);
-  if (el) el.classList.remove('open');
+function closeCard() {
+  var card = document.getElementById('phase-card');
+  var prompt = document.getElementById('phase-card-prompt');
+  card.style.display = 'none';
+  card.removeAttribute('data-active');
+  prompt.style.display = 'block';
+  document.querySelectorAll('.process-phase').forEach(function(p) {
+    p.classList.remove('open');
+  });
 }
 
 // Auto-open step from URL ?step=N
 (function() {
   var params = new URLSearchParams(window.location.search);
   var step = params.get('step');
-  if (step) {
-    var el = document.getElementById('phase-' + step);
-    if (el) {
-      el.classList.add('open');
+  if (step && phaseData[step]) {
+    togglePhase(step);
+    setTimeout(function() {
+      var card = document.getElementById('phase-card');
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       // Add "You Are Here" indicator
-      var node = el.querySelector('.phase-node');
-      if (node) {
-        node.style.borderColor = '#C88A41';
-        node.style.background = '#50250C';
-        node.style.boxShadow = '0 0 0 3px rgba(200,138,65,0.4)';
-        var num = node.querySelector('.phase-num');
-        if (num) num.style.color = '#C88A41';
-        var here = document.createElement('div');
-        here.style.cssText = 'font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C88A41;margin-top:2px;';
-        here.textContent = 'YOU ARE HERE';
-        node.appendChild(here);
+      var el = document.getElementById('phase-' + step);
+      if (el) {
+        var node = el.querySelector('.phase-node');
+        if (node) {
+          node.style.borderColor = '#C88A41';
+          node.style.background = '#50250C';
+          node.style.boxShadow = '0 0 0 3px rgba(200,138,65,0.4)';
+          var num = node.querySelector('.phase-num');
+          if (num) num.style.color = '#C88A41';
+          var here = document.createElement('div');
+          here.style.cssText = 'font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C88A41;margin-top:2px;';
+          here.textContent = 'YOU ARE HERE';
+          node.appendChild(here);
+        }
       }
-      setTimeout(function() {
-        el.scrollIntoView({behavior:'smooth', block:'center'});
-      }, 300);
-    }
+    }, 300);
   }
 })();
 </script>
