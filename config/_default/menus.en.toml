@@ -93,6 +93,11 @@ name = "Our Standards"
 url = "/standards/"
 weight = 5
 
+[[footer]]
+name = "Recording Policy"
+url = "/recording-policy/"
+weight = 6
+
 [[main]]
 name = "Glossary"
 url = "/glossary"

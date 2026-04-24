@@ -1,1 +1,133 @@
 /* Add your own custom styles here */
+
+/* ======================================================================
+   Recording policy page — client-friendly typography
+   Uses only raw CSS (not Tailwind utilities) so it is always emitted
+   regardless of Tailwind JIT scanning.
+   ====================================================================== */
+
+.recording-policy {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.recording-policy-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.recording-policy-header h1 {
+  font-size: 2rem;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .recording-policy-header h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.recording-policy-subtitle {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  max-width: 36rem;
+  margin: 0 auto;
+  color: var(--color-text);
+}
+
+.dark .recording-policy-subtitle {
+  color: var(--color-darkmode-text);
+}
+
+@media (min-width: 768px) {
+  .recording-policy-subtitle {
+    font-size: 1.25rem;
+  }
+}
+
+.recording-policy-content {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  padding: 1.75rem 1.5rem;
+  line-height: 1.75;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+}
+
+.dark .recording-policy-content {
+  background-color: var(--color-darkmode-light);
+  border-color: var(--color-darkmode-border);
+}
+
+@media (min-width: 768px) {
+  .recording-policy-content {
+    padding: 2.5rem 3rem;
+  }
+}
+
+.recording-policy-content > *:first-child {
+  margin-top: 0;
+}
+
+.recording-policy-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.recording-policy-content h2 {
+  font-size: 1.375rem;
+  line-height: 1.35;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dark .recording-policy-content h2 {
+  border-bottom-color: var(--color-darkmode-border);
+}
+
+@media (min-width: 768px) {
+  .recording-policy-content h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.recording-policy-content p {
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.0625rem;
+}
+
+.recording-policy-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0 1.25rem;
+}
+
+.recording-policy-content ul li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.0625rem;
+}
+
+.recording-policy-content ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: currentColor;
+  opacity: 0.4;
+}
+
+.recording-policy-content ul li strong {
+  color: var(--color-text-dark);
+}
+
+.dark .recording-policy-content ul li strong {
+  color: var(--color-darkmode-text-dark);
+}
